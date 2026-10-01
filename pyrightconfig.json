@@ -1,0 +1,7 @@
+{
+  "venvPath": "D:\\Echolife",
+  "venv": ".venv",
+  "include": [
+    "backend"
+  ]
+}
