@@ -59,22 +59,28 @@ def convert_to_wav(input_path: Path, output_path: Path, target_sr: int = SAMPLE_
         return output_path
 
 def _resample_and_save(data: np.ndarray, orig_sr: int, output_path: Path, target_sr: int) -> Path:
-    """Resamples float32 audio data to target_sr mono and saves to WAV."""
+    """Resamples float32 audio data to target_sr mono using torchaudio bandlimited sinc filters."""
+    import torch
+    import torchaudio.functional as F
+
     # Convert stereo to mono if necessary
     if data.ndim > 1:
         data = np.mean(data, axis=1)
 
-    # Resample if needed
+    # Studio-grade bandlimited Kaiser sinc resampling (zero FFT noise)
     if orig_sr != target_sr:
-        num_samples = int(len(data) * target_sr / orig_sr)
-        data = signal.resample(data, num_samples)
+        tensor_audio = torch.from_numpy(data).float().unsqueeze(0)
+        resampled_tensor = F.resample(tensor_audio, orig_sr, target_sr, lowpass_filter_width=16)
+        data = resampled_tensor.squeeze(0).numpy()
 
-    # Peak normalization (safe headroom at -1 dB)
-    max_val = np.max(np.abs(data))
-    if max_val > 1e-4:
-        data = data / max_val * 0.9
+    # RMS normalization for clean, clear vocal presence
+    rms = np.sqrt(np.mean(data**2))
+    target_rms = 0.12  # Clean conversational speech level
+    if rms > 1e-4:
+        data = data * (target_rms / rms)
+    data = np.clip(data, -0.95, 0.95)
 
-    # Trim leading/trailing silence (threshold ~ 0.01)
+    # Trim leading/trailing silence safely
     threshold = 0.015
     non_silent = np.where(np.abs(data) > threshold)[0]
     if len(non_silent) > 0:

@@ -19,15 +19,14 @@ class WavRecorder {
 
   async start() {
     this.recordedBuffers = [];
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
-      sampleRate: this.sampleRate
-    });
+    // Let browser use native hardware sample rate to avoid audio driver distortion
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     this.mediaStream = await navigator.mediaDevices.getUserMedia({
       audio: {
         channelCount: 1,
-        echoCancellation: true,
-        noiseSuppression: true,
+        echoCancellation: false,
+        noiseSuppression: false,
         autoGainControl: true
       }
     });

@@ -61,14 +61,17 @@ class XTTSEngine:
         if self.model is None:
             raise RuntimeError("XTTS-v2 model is not loaded.")
 
-        print(f"[EchoLife XTTS-v2] Extracting speaker latents from {wav_path}...")
+        # Read audio length to use maximum reference conditioning
+        info = sf.info(str(wav_path))
+        cond_len = min(30, max(12, int(info.duration)))
+
         with torch.no_grad():
             gpt_cond_latent, speaker_embedding = self.model.get_conditioning_latents(
                 audio_path=[str(wav_path)],
                 max_ref_length=30,
-                gpt_cond_len=6,
+                gpt_cond_len=cond_len,
                 gpt_cond_chunk_len=6,
-                sound_norm_refs=False
+                sound_norm_refs=True
             )
 
         # Move to CPU for serialization / saving in vault
@@ -82,7 +85,7 @@ class XTTSEngine:
     def synthesize(self, text: str, profile_data: dict, language: str = "en") -> io.BytesIO:
         """
         Synthesizes text into high-fidelity speech using precomputed speaker latents.
-        Returns a BytesIO buffer containing the standard 22050Hz 16-bit PCM WAV.
+        Returns a BytesIO buffer containing the standard 24000Hz 16-bit PCM WAV.
         """
         if self.model is None:
             raise RuntimeError("XTTS-v2 model is not loaded.")
@@ -96,9 +99,9 @@ class XTTSEngine:
                 language=language,
                 gpt_cond_latent=gpt_cond_latent,
                 speaker_embedding=speaker_embedding,
-                temperature=0.7,
+                temperature=0.25,        # Low temperature strictly preserves user timbre & accent
                 length_penalty=1.0,
-                repetition_penalty=2.0,
+                repetition_penalty=5.0,  # Prevents robotic stuttering and noise
                 top_k=50,
                 top_p=0.85,
                 enable_text_splitting=True
