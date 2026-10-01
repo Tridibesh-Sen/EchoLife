@@ -1,6 +1,6 @@
 import os
 import io
-import torch
+import torch  # type: ignore
 import soundfile as sf
 import numpy as np
 from pathlib import Path
@@ -19,8 +19,8 @@ class OpenVoiceEngine:
 
     def _load_model(self):
         try:
-            from openvoice.api import ToneColorConverter
-            from melo.api import TTS as MeloTTS
+            from openvoice.api import ToneColorConverter  # type: ignore
+            from melo.api import TTS as MeloTTS  # type: ignore
 
             # Standard checkpoint paths or HF repository
             self.converter = ToneColorConverter()

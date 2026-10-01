@@ -10,7 +10,7 @@ from backend.config import SAMPLE_RATE, CHANNELS, TEMP_DIR, MIN_AUDIO_DURATION_S
 def get_ffmpeg_binary():
     """Finds ffmpeg from imageio_ffmpeg or system PATH."""
     try:
-        import imageio_ffmpeg
+        import imageio_ffmpeg  # type: ignore
         return imageio_ffmpeg.get_ffmpeg_exe()
     except Exception:
         return "ffmpeg"
@@ -32,7 +32,7 @@ def convert_to_wav(input_path: Path, output_path: Path, target_sr: int = SAMPLE_
 
     # Try pydub / imageio_ffmpeg
     try:
-        from pydub import AudioSegment
+        from pydub import AudioSegment  # type: ignore
         ffmpeg_bin = get_ffmpeg_binary()
         if os.path.exists(ffmpeg_bin):
             AudioSegment.converter = ffmpeg_bin
@@ -60,8 +60,8 @@ def convert_to_wav(input_path: Path, output_path: Path, target_sr: int = SAMPLE_
 
 def _resample_and_save(data: np.ndarray, orig_sr: int, output_path: Path, target_sr: int) -> Path:
     """Resamples float32 audio data to target_sr mono using torchaudio bandlimited sinc filters."""
-    import torch
-    import torchaudio.functional as F
+    import torch  # type: ignore
+    import torchaudio.functional as F  # type: ignore
 
     # Convert stereo to mono if necessary
     if data.ndim > 1:

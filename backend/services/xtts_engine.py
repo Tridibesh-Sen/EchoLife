@@ -1,6 +1,6 @@
 import os
 import io
-import torch
+import torch  # type: ignore
 import soundfile as sf
 import numpy as np
 from pathlib import Path
@@ -23,7 +23,7 @@ class XTTSEngine:
     def _load_model(self):
         """Loads XTTS-v2 using Coqui TTS manager to ensure automatic weight resolution."""
         try:
-            from TTS.api import TTS
+            from TTS.api import TTS  # type: ignore
             # Loading via TTS manages download and checkpoint placement cleanly
             is_gpu = (self.device == "cuda")
             self.tts = TTS(
@@ -37,9 +37,9 @@ class XTTSEngine:
         except Exception as e:
             # Fallback to direct Xtts class if manual checkpoint path exists
             print(f"[EchoLife XTTS-v2] Standard loader error: {e}. Trying direct Xtts import...")
-            from TTS.tts.configs.xtts_config import XttsConfig
-            from TTS.tts.models.xtts import Xtts
-            from TTS.utils.manage import ModelManager
+            from TTS.tts.configs.xtts_config import XttsConfig  # type: ignore
+            from TTS.tts.models.xtts import Xtts  # type: ignore
+            from TTS.utils.manage import ModelManager  # type: ignore
 
             manager = ModelManager()
             model_path, config_path, _ = manager.download_model("tts_models/multilingual/multi-dataset/xtts_v2")
