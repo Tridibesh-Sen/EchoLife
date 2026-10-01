@@ -65,8 +65,10 @@ class XTTSEngine:
         with torch.no_grad():
             gpt_cond_latent, speaker_embedding = self.model.get_conditioning_latents(
                 audio_path=[str(wav_path)],
-                max_ref_length=30.0,
-                gpt_cond_len=30.0
+                max_ref_length=30,
+                gpt_cond_len=6,
+                gpt_cond_chunk_len=6,
+                sound_norm_refs=False
             )
 
         # Move to CPU for serialization / saving in vault

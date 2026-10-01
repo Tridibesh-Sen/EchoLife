@@ -78,8 +78,8 @@ def _resample_and_save(data: np.ndarray, orig_sr: int, output_path: Path, target
     threshold = 0.015
     non_silent = np.where(np.abs(data) > threshold)[0]
     if len(non_silent) > 0:
-        start_idx = max(0, non_silent[0] - int(target_sr * 0.1))  # 100ms margin
-        end_idx = min(len(data), non_silent[-1] + int(target_sr * 0.1))
+        start_idx = int(max(0, int(non_silent[0]) - int(target_sr * 0.1)))
+        end_idx = int(min(len(data), int(non_silent[-1]) + int(target_sr * 0.1)))
         data = data[start_idx:end_idx]
 
     sf.write(str(output_path), data, target_sr, subtype="PCM_16")
