@@ -1,0 +1,13 @@
+# EchoLife Core Backend Dependencies
+fastapi>=0.110.0
+uvicorn>=0.28.0
+python-multipart>=0.0.9
+pydub>=0.25.1
+imageio-ffmpeg>=0.4.9
+soundfile>=0.12.1
+numpy>=1.24.0,<2.0.0
+scipy>=1.11.0
+cryptography>=42.0.0
+
+# Primary Voice Engine (Coqui XTTS-v2)
+TTS>=0.22.0

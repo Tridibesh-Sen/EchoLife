@@ -1,0 +1,60 @@
+{
+  "categories": [
+    {
+      "id": "emergency",
+      "name": "Emergency & Urgent",
+      "color": "emergency",
+      "icon": "alert-circle",
+      "phrases": [
+        "I need help right now.",
+        "I am having difficulty breathing.",
+        "I am in severe pain.",
+        "Please call my doctor or caregiver immediately.",
+        "I feel dizzy and need to lie down."
+      ]
+    },
+    {
+      "id": "daily_needs",
+      "name": "Daily Essentials",
+      "color": "neutral",
+      "icon": "coffee",
+      "phrases": [
+        "I need a glass of water.",
+        "I am hungry and would like something to eat.",
+        "I need assistance going to the restroom.",
+        "Please help me adjust my position in bed.",
+        "Can you help me sit up comfortably?",
+        "I am feeling very cold, please bring a blanket.",
+        "It feels warm in here, can you open a window?"
+      ]
+    },
+    {
+      "id": "emotional",
+      "name": "Family & Loved Ones",
+      "color": "warm",
+      "icon": "heart",
+      "phrases": [
+        "I love you so much.",
+        "Thank you for being here with me.",
+        "I am so glad to see you today.",
+        "Don't worry about me, I am feeling alright.",
+        "Give me a hug.",
+        "I appreciate everything you are doing for me."
+      ]
+    },
+    {
+      "id": "conversation",
+      "name": "Quick Responses",
+      "color": "subtle",
+      "icon": "message-circle",
+      "phrases": [
+        "Yes, absolutely.",
+        "No, thank you.",
+        "Please give me a moment.",
+        "I understand.",
+        "Could you please repeat that?",
+        "I would like some quiet time now."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoLife — Privacy-First Voice Identity</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo-icon">EL</div>
+        <div>
+          <h1>EchoLife</h1>
+          <p>Privacy-First Lifelong Digital Voice Identity</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-pill">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Checking...</span>
+        </div>
+        <span class="status-pill" id="engineBadge" style="display:none; font-size:12px; background:#F2EDE4;">
+          Loading Engine...
+        </span>
+        <button class="btn btn-primary" id="btnOpenEnrollment">
+          🎙 Preserve New Voice
+        </button>
+      </div>
+    </header>
+
+    <!-- Active Voice Identity Banner -->
+    <section class="profile-banner">
+      <div class="profile-info">
+        <div class="avatar-badge">👤</div>
+        <div class="profile-text">
+          <h3>Active Voice: <span id="activeProfileName">default_user</span></h3>
+          <p>🔒 100% Offline • Hardware Encrypted (AES-256) • Zero Cloud Transmission</p>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-secondary" onclick="document.getElementById('btnOpenEnrollment').click()">
+          Change Voice
+        </button>
+      </div>
+    </section>
+
+    <!-- Speaking Notification Banner -->
+    <div class="speaking-banner" id="speakingBanner">
+      <div class="sound-wave">
+        <div class="sound-bar"></div>
+        <div class="sound-bar"></div>
+        <div class="sound-bar"></div>
+        <div class="sound-bar"></div>
+      </div>
+      <span id="speakingText" style="font-weight: 600; font-size: 15px;">Speaking...</span>
+      <span style="font-size: 13px; opacity: 0.9;">Playing through laptop speaker</span>
+    </div>
+
+    <!-- AAC Section -->
+    <div class="section-header">
+      <h2>Instant Communication Grid</h2>
+      <span style="font-size: 13px; color: var(--text-muted);">Click any card to speak aloud</span>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs" id="categoryTabs">
+      <!-- Populated dynamically -->
+    </div>
+
+    <!-- Phrase Cards Grid -->
+    <div class="aac-grid" id="aacGrid">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- Sticky Bottom Free-Text Typing Bar -->
+  <div class="typing-bar-container">
+    <div class="typing-bar">
+      <input 
+        type="text" 
+        id="typingInput" 
+        class="typing-input" 
+        placeholder="Type any message to speak in your authentic voice..."
+        autocomplete="off"
+      >
+      <button class="btn btn-primary btn-speak" id="btnSpeak">
+        🔊 Speak in My Voice
+      </button>
+    </div>
+  </div>
+
+  <!-- Voice Enrollment Modal -->
+  <div class="modal-overlay" id="enrollmentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Preserve Your Voice Identity</h3>
+        <button class="modal-close" id="btnCloseModal">&times;</button>
+      </div>
+
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+        Read the passage below clearly into your laptop microphone. The AI will extract your authentic vocal fingerprint and seal it in your local encrypted vault.
+      </p>
+
+      <label style="font-size: 13px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">
+        Voice Identity Name:
+      </label>
+      <input 
+        type="text" 
+        id="profileNameInput" 
+        class="typing-input" 
+        style="width: 100%; margin-bottom: 14px; padding: 10px 14px;" 
+        value="my_authentic_voice"
+      >
+
+      <div class="script-box">
+        "When the sunlight strikes raindrops in the air, they act as a prism and form a rainbow. The rainbow is a division of white light into many beautiful colors."
+      </div>
+
+      <div class="mic-meter-container">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:6px;">
+          <span>Microphone Level</span>
+          <span id="recordStatus">Ready</span>
+        </div>
+        <div class="mic-meter-bar">
+          <div class="mic-meter-fill" id="micMeterFill"></div>
+        </div>
+      </div>
+
+      <div class="record-controls">
+        <button class="btn btn-primary" id="btnRecord" style="width: 100%; padding: 14px;">
+          🎙 Start Recording (15s)
+        </button>
+        <button class="btn btn-secondary" id="btnPreviewRecord" style="display: none; width: 100%;">
+          ▶ Listen to Recording Preview
+        </button>
+        <button class="btn btn-primary" id="btnSaveVoice" style="width: 100%; background: #2D6A4F;" disabled>
+          🔒 Lock into Vault & Activate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
