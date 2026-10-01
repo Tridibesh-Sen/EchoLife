@@ -3,5 +3,11 @@
   "venv": ".venv",
   "include": [
     "backend"
-  ]
+  ],
+  "extraPaths": [
+    "D:\\Echolife\\.venv\\Lib\\site-packages",
+    "D:\\Echolife"
+  ],
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none"
 }
