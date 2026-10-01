@@ -10,4 +10,5 @@ scipy>=1.11.0
 cryptography>=42.0.0
 
 # Primary Voice Engine (Coqui XTTS-v2)
+transformers>=4.33.0,<4.40.0
 TTS>=0.22.0

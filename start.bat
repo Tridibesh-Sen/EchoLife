@@ -8,13 +8,15 @@ echo      100%% Offline * Privacy-First * On-Device AI
 echo ========================================================
 echo.
 
-:: Redirect temp directories to D: drive (38GB free) to prevent C: drive out-of-space errors
+:: Redirect temp directories and TTS model home to D: drive (38GB free) to prevent C: drive out-of-space errors
 set "TEMP=D:\pip_temp"
 set "TMP=D:\pip_temp"
 set "PIP_CACHE_DIR=D:\pip_cache"
+set "TTS_HOME=D:\tts_cache"
 
 if not exist "D:\pip_temp" mkdir "D:\pip_temp"
 if not exist "D:\pip_cache" mkdir "D:\pip_cache"
+if not exist "D:\tts_cache" mkdir "D:\tts_cache"
 
 :: Use the virtual environment on D: drive
 if not exist "D:\Echolife\.venv" (

@@ -1,6 +1,11 @@
 import os
 from pathlib import Path
 
+# Agree to Coqui CPML license automatically for non-interactive backend execution
+os.environ["COQUI_TOS_AGREED"] = "1"
+# Store XTTS-v2 1.8GB model on D: drive (38GB free) to prevent C: drive out-of-space crash
+os.environ["TTS_HOME"] = r"D:\tts_cache"
+
 # Base Paths
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
